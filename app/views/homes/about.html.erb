@@ -1,2 +1,5 @@
 <h1>Homes#about</h1>
 <p>Find me in app/views/homes/about.html.erb</p>
+<%= link_to '新規登録', new_user_registration_path %>
+<%= link_to 'ログイン', new_user_session_path %>
+<%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
