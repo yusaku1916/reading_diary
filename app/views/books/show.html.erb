@@ -9,3 +9,6 @@
 
 <h4>started reading at</h4>
 <%= @book.start_day %>
+
+<%= link_to "edit", edit_book_path(@book.id) %>
+<%= link_to "destroy", "/books/#{@book.id}", method: :delete %>
