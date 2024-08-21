@@ -6,6 +6,6 @@
   <%= book.name %>
   <h4>著者</h4>
   <%= book.author %>
-  <h4>読み始め</h4>
-  <%= book.start_day %>
+
+  <%= link_to "show", book_path(book.id) %>
 <% end %>
