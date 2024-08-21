@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <header>
+      <%= link_to "bookindex", books_path %>
+      <%= link_to "bookNEW", new_book_path %>
+      <%= link_to 'ログイン', 'users/sign_in' %>
+      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+    </header>
     <%= yield %>
   </body>
 </html>

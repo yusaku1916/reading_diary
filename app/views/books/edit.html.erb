@@ -1,0 +1,15 @@
+<h1>Books#edit</h1>
+<p>Find me in app/views/books/edit.html.erb</p>
+<%= form_with model: @book do |f| %>
+
+  <h4>name</h4>
+  <%= f.text_field :name %>
+
+  <h4>author</h4>
+  <%= f.text_field :author %>
+
+  <h4>Started Reading At</h4>
+  <%= f.datetime_select :start_day %>
+
+  <%= f.submit '登録' %>
+<% end %>
