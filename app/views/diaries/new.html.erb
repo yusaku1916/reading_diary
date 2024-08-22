@@ -8,7 +8,7 @@
   <%= f.number_field :time %>
 
   <h4>date</h4>
-  <%= f.datetime_select :date %>
+  <%= f.date_select :date %>
 
   <h4>book</h4>
   <%= f.select :book_id, @books.map { |book| [book.name, book.id] } %>

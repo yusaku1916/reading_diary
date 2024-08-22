@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_21_162556) do
+ActiveRecord::Schema.define(version: 2024_08_22_140944) do
 
   create_table "books", force: :cascade do |t|
     t.string "name"
     t.string "author"
-    t.datetime "start_day"
+    t.date "start_day"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2024_08_21_162556) do
 
   create_table "diaries", force: :cascade do |t|
     t.string "comment"
-    t.datetime "date"
+    t.date "date"
     t.integer "time"
     t.integer "public_id"
     t.integer "user_id"

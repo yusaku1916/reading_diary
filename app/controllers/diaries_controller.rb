@@ -7,12 +7,14 @@ class DiariesController < ApplicationController
   def create
     diary = Diary.new(diary_params)
     diary.user_id = current_user.id
+    # byebug
     diary.save
     redirect_to diaries_path
   end
 
   def index
     @diaries = Diary.where(user_id: current_user.id)
+    @books = Book.where(user_id: current_user.id)
   end
 
   def show
@@ -26,13 +28,13 @@ class DiariesController < ApplicationController
   def update
     diary = Diary.find(params[:id])
     diary.update
-    redirect_to books_path
+    redirect_to diaries_path
   end
 
   def destroy
     diary = Diary.find(params[:id])
     diary.destroy
-    redirect_to books_path
+    redirect_to diaries_path
   end
 
   private

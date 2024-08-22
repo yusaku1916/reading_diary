@@ -12,8 +12,11 @@
 
   <body>
     <header>
+      current user : <%= current_user.id %>
       <%= link_to "bookindex", books_path %>
       <%= link_to "bookNEW", new_book_path %>
+      <%= link_to "DiaryNEW", new_diary_path %>
+      <%= link_to "DiaryIndex", diaries_path %>
       <%= link_to 'ログイン', 'users/sign_in' %>
       <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
     </header>
