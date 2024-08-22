@@ -1,5 +1,4 @@
 <h1>Diaries#new</h1>
-<p>Find me in app/views/diaries/new.html.erb</p>
 <%= form_with model: @diary do |f| %>
 
   <h4>comment</h4>
@@ -12,7 +11,10 @@
   <%= f.datetime_select :date %>
 
   <h4>book</h4>
-  <%= f.select :book_id, @books.map { |book| [book.name] } %>
+  <%= f.select :book_id, @books.map { |book| [book.name, book.id] } %>
+
+  <h4>Public ou Unpublic</h4>
+  <%= f.select :public_id, options_for_select([['公開', 1], ['非公開', 2]]) %>
 
   <%= f.submit '登録' %>
 <% end %>
