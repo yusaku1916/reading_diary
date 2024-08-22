@@ -1,2 +1,17 @@
 <h1>Diaries#show</h1>
-<p>Find me in app/views/diaries/show.html.erb</p>
+
+<h4>title</h4>
+<%= @book.name %>
+
+<h4>date</h4>
+<%= @diary.date %>
+
+<h4>time</h4>
+<%= @diary.time %>
+
+<h4>comment</h4>
+<%= @diary.comment %>
+
+<%= link_to "edit", edit_diary_path(@diary.id) %>
+<%= link_to "destroy", "/diaries/#{@diary.id}", method: :delete %>
+

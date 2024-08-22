@@ -19,15 +19,17 @@ class DiariesController < ApplicationController
 
   def show
     @diary = Diary.find(params[:id])
+    @book = Book.find(@diary.book_id)
   end
 
   def edit
     @diary = Diary.find(params[:id])
+    @books = Book.where(user_id: current_user.id)
   end
 
   def update
     diary = Diary.find(params[:id])
-    diary.update
+    diary.update(diary_params)
     redirect_to diaries_path
   end
 
