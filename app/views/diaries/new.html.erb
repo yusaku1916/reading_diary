@@ -1,0 +1,18 @@
+<h1>Diaries#new</h1>
+<p>Find me in app/views/diaries/new.html.erb</p>
+<%= form_with model: @diary do |f| %>
+
+  <h4>comment</h4>
+  <%= f.text_field :comment %>
+
+  <h4>time</h4>
+  <%= f.number_field :time %>
+
+  <h4>date</h4>
+  <%= f.datetime_select :date %>
+
+  <h4>book</h4>
+  <%= f.select :book_id, @books.map { |book| [book.name] } %>
+
+  <%= f.submit '登録' %>
+<% end %>
