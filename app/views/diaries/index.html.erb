@@ -8,3 +8,5 @@
   <%= link_to "edit", edit_diary_path(diary.id) %>
   <%= link_to "destroy", "/diaries/#{diary.id}", method: :delete %>
 <% end %>
+
+<%= render 'users/user_info', user:@user %>

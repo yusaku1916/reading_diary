@@ -1,5 +1,4 @@
 <h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
 
 <% @books.each do |book| %>
   <h4>タイトル</h4>
@@ -11,3 +10,5 @@
   <%= link_to "edit", edit_book_path(book.id) %>
   <%= link_to "destroy", "/books/#{book.id}", method: :delete %>
 <% end %>
+
+<%= render 'users/user_info', user:@user %>

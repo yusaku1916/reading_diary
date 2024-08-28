@@ -1,0 +1,11 @@
+<h1>Users#edit</h1>
+<%= form_with model: @user do |f| %>
+
+  <h4>name</h4>
+  <%= f.text_field :name %>
+
+  <h4>introduction</h4>
+  <%= f.text_field :introduction %>
+
+  <%= f.submit '登録' %>
+<% end %>
