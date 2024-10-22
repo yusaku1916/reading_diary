@@ -1,13 +1,16 @@
 class ApplicationController < ActionController::Base
-  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def after_sign_in_path_for(resource)
-    homes_about_path
-  end
+  protect_from_forgery with: :null_session
 
-  def after_sign_out_path_for(resource)
-    homes_about_path
-  end
+  # before_action :configure_permitted_parameters, if: :devise_controller?
+
+  # def after_sign_in_path_for(resource)
+  #   homes_about_path
+  # end
+
+  # def after_sign_out_path_for(resource)
+  #   homes_about_path
+  # end
 
   protected
 
