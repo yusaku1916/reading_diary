@@ -6,17 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 const InputName = styled.input`
-  font-size: 20px;
   width: 100%;
   height: 40px;
   padding: 2px 7px;
   margin: 12px 0;
-`;
-
-const CurrentStatus = styled.div`
-  font-size: 19px;
-  margin: 8px 0 12px 0;
-  font-weight: bold;
 `;
 
 const EditButton = styled.button`

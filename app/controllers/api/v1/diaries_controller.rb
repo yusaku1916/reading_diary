@@ -29,8 +29,9 @@ class Api::V1::DiariesController < ApplicationController
 
   def show
     diary = Diary.find(params[:id])
-    book = Book.find(diary.book_id)
-    render json: { diary: diary, book: book }
+    books = Book.where(user_id: 1)
+    # render json: diary
+    render json: { diary: diary, books: books }
   end
 
   def edit

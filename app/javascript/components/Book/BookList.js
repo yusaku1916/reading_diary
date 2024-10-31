@@ -19,10 +19,6 @@ const RemoveAllButton = styled.button`
 `
 
 const BookName = styled.span`
-  font-size: 27px;
-  ${({ is_completed }) => is_completed && `
-    opacity: 0.4;
-  `}
 `
 
 const Row = styled.div`
@@ -92,7 +88,7 @@ function BookList() {
           {books.map((val, key) => {
             return (
               <Row key={key}>
-                <BookName is_completed={val.is_completed}>
+                <BookName className='fs-4'>
                   {val.name}
                 </BookName>
                 <Link to={"/books/" + val.id + "/edit"}>

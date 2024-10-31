@@ -123,7 +123,7 @@ function AddBook(props) {
       <Div className='row'>
         <Div className='col-4'><h2>Use Info</h2></Div>
         <InputAndButton className='col-8'>
-          <label htmlFor="inputName">本の名前</label>
+          <label htmlFor="inputName" className='fs-5'>本の名前</label>
           <InputName
             type="text"
             id="inputName"
@@ -132,7 +132,7 @@ function AddBook(props) {
             onChange={handleInputChange}
             name="name"
           />        
-          <label htmlFor="inputAuthor">著者</label>
+          <label htmlFor="inputAuthor" className='fs-5'>著者</label>
           <InputName
             type="text"
             id="inputAuthor"
@@ -143,7 +143,7 @@ function AddBook(props) {
           />
           <DateAndButton>
             <div>
-              <label htmlFor="inputStartDay">読み始め</label>
+              <label htmlFor="inputStartDay" className='fs-5'>読み始め</label>
               <InputName
                 type="date"
                 id="inputStartDay"

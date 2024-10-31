@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import { AiFillEdit } from 'react-icons/ai';
 
 const DiaryName = styled.span`
-  font-size: 27px;
-
 `;
 
 const Row = styled.div`
@@ -36,8 +34,6 @@ function DiaryList() {
   useEffect(() => {
     axios.get('/api/v1/diaries.json')
       .then(resp => {
-        console.log(Array.isArray(resp.data));
-        console.log(resp.data);
         setDiaries(resp.data);
       })
       .catch(e => {
@@ -57,8 +53,8 @@ function DiaryList() {
           {diaries.map((val, key) => {
             return (
               <Row key={key}>
-                <DiaryName>
-                  {val.title}({val.date})
+                <DiaryName className='fs-4'>
+                  {val.title}<br/><div className='fs-6'>({val.date})</div>
                 </DiaryName>
                 <Link to={"/diaries/" + val.id + "/edit"}>
                   <EditButton>

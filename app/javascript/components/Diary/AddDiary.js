@@ -155,8 +155,8 @@ function AddDiary(props) {
           <Div className='col-4'><h2>User Info</h2></Div>
           <Div className='col-8'>
             <div className='row mx-1 my-3' id='DateAndTime'>
-              <div className='col-9 pr-1 pl-0 fs-1'>
-                <label htmlFor="date">Date</label>
+              <div className='col-9 pe-1 ps-0'>
+                <label htmlFor="date" className='fs-5'>Date</label>
                 <InputDate
                   type="date"
                   id="date"
@@ -166,8 +166,8 @@ function AddDiary(props) {
                   name="date"
                 />
               </div>
-              <div className='col-3 pl-1 pr-0'>
-                <label htmlFor="time">Time</label>
+              <div className='col-3 ps-1 pe-0'>
+                <label htmlFor="time" className='fs-5'>Time</label>
                 <InputTime
                   type="number"
                   id="time"
@@ -179,7 +179,7 @@ function AddDiary(props) {
               </div>
             </div>
             <div className='row mx-1 my-3' id='Title'>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title" className='fs-5'>Title</label>
               <InputTitle
                 type="text"
                 id="title"
@@ -189,8 +189,8 @@ function AddDiary(props) {
                 name="title"
               />
             </div>
-            <div className='row mx-1 my-3 fs-2' id='Diary'>
-              <label htmlFor="comment" className='fs-2'>Diary</label>
+            <div className='row mx-1 my-3' id='Diary'>
+              <label htmlFor="comment" className='fs-5'>Diary</label>
               <InputComment
                 type="text"
                 id="comment"
@@ -224,7 +224,7 @@ function AddDiary(props) {
                 </label>
               </PublicId>
               <BookIdDiv className='col-8 d-flex flex-column justify-content-center align-items-center'>
-                <label htmlFor="select-book" className='text-left fs-5'>Book</label>
+                <label htmlFor="select-book" className='text-start fs-5'>Book</label>
                 <select
                   id="select-book"
                   value={selectedBookId}

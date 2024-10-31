@@ -60,7 +60,7 @@ function App() {
 
   return (
     <>
-      <Navbar className='navbar navbar-dark bg-dark'>
+      <Navbar className='navbar navbar-dark bg-dark px-5'>
         <Logo className='text-white'>
           Reading Diary
         </Logo>
