@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 const InputName = styled.input`
   font-size: 20px;
@@ -16,17 +17,6 @@ const CurrentStatus = styled.div`
   font-size: 19px;
   margin: 8px 0 12px 0;
   font-weight: bold;
-`;
-
-const IsCompeletedButton = styled.button`
-  color: #fff;
-  font-weight: 500;
-  font-size: 17px;
-  padding: 5px 10px;
-  background: #f2a115;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
 `;
 
 const EditButton = styled.button`
@@ -54,12 +44,14 @@ const DeleteButton = styled.button`
 toast.configure();
 
 function EditBook(props) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const today = new Date().toISOString().substring(0, 10);
   const initialBookState = {
     id: null,
     name: "",
     author: "",
-    start_day: "",
-    is_completed: false
+    start_day: today,
   };
   const [currentBook, setCurrentBook] = useState(initialBookState);
 
@@ -73,6 +65,7 @@ function EditBook(props) {
   const getBook = id => {
     axios.get(`/api/v1/books/${id}`)
     .then(resp => {
+      console.log(resp.data);
       setCurrentBook(resp.data);
     })
     .catch(e => {
@@ -81,9 +74,13 @@ function EditBook(props) {
   };
 
   useEffect(() => {
-    console.log(props.match); // これで `match` オブジェクトが存在するか確認します
-    if (props.match && props.match.params && props.match.params.id) {
-      getBook(props.match.params.id);
+    // console.log(props.match); // これで `match` オブジェクトが存在するか確認します
+    // if (props.match && props.match.params && props.match.params.id) {
+    //   getBook(props.match.params.id);
+    // }
+    // console.log(id); // これで `id` が正しく取得できているか確認
+    if (id){
+      getBook(id);
     }
   }, [props.match]);
   
@@ -93,23 +90,16 @@ function EditBook(props) {
     setCurrentBook({ ...currentBook, [name]: value });
   };
 
-  const updateIsCompleted = (val) => {
-    var data = {
-      id: val.id,
-      name: val.name,
-      is_completed: !val.is_completed
-    };
-    axios.patch(`/api/v1/books/${val.id}`, data)
-    .then(resp => {
-      setCurrentBook(resp.data);
-    });
-  };
-
   const updateBook = () => {
-    axios.patch(`/api/v1/books/${currentBook.id}`, currentBook)
-    .then(response => {
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    axios.patch(`/api/v1/books/${currentBook.id}`, currentBook, {
+      headers: {
+        'X-CSRF-Token': token // トークンをヘッダーに含める
+      }
+    })
+    .then(resp => {
       notify();
-      props.history.push("/books");
+      navigate("/books");
     })
     .catch(e => {
       console.log(e);
@@ -143,28 +133,23 @@ function EditBook(props) {
             value={currentBook.name}
             onChange={handleInputChange}
           />
-          <div>
-            <span>Current Status</span><br/>
-            <CurrentStatus>
-              {currentBook.is_completed ? "Completed" : "UnCompleted"}
-            </CurrentStatus>
-          </div>
+          <label htmlFor="author">Current Name</label>
+          <InputName
+            type="text"
+            id="author"
+            name="author"
+            value={currentBook.author}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="start_day">Current Name</label>
+          <InputName
+            type="date"
+            id="start_day"
+            name="start_day"
+            value={currentBook.start_day}
+            onChange={handleInputChange}
+          />
         </div>
-        {currentBook.is_completed ? (
-          <IsCompeletedButton
-            className="badge badge-primary mr-2"
-            onClick={() => updateIsCompleted(currentBook)}
-          >
-            UnCompleted
-          </IsCompeletedButton>
-        ) : (
-          <IsCompeletedButton
-            className="badge badge-primary mr-2"
-            onClick={() => updateIsCompleted(currentBook)}
-          >
-            Completed
-          </IsCompeletedButton>
-        )}
         <EditButton
           type="submit"
           onClick={updateBook}

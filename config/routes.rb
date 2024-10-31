@@ -5,11 +5,16 @@ Rails.application.routes.draw do
   get 'books', to: 'sites#index'
   get 'books/new', to: 'sites#index'
   get 'books/:id/edit', to: 'sites#index'
+
+  get 'diaries', to: 'sites#index'
+  get 'diaries/new', to: 'sites#index'
+  get 'diaries/:id/edit', to: 'sites#index'
   
   namespace :api do 
     namespace :v1 do
       delete 'books/destroy_all', to: 'books#destroy_all'
-      resources :books, only: %i[index show create edit destroy]
+      resources :books, only: %i[index show create edit destroy update new]
+      resources :diaries, only: %i[index show create edit destroy update new]
     end
   end
 

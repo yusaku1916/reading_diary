@@ -60,3 +60,6 @@ gem 'devise'
 gem 'kaminari','~> 1.2.1'
 
 gem "jsbundling-rails", "~> 1.3"
+
+gem 'bootstrap', '~> 5.0.2'
+gem 'sassc-rails'

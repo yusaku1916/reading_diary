@@ -1,27 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import styled from 'styled-components'
-import AddBook from './AddBook'
-import BookList from './BookList'
-import EditBook from './EditBook'
+import AddBook from './Book/AddBook'
+import BookList from './Book/BookList'
+import EditBook from './Book/EditBook'
+import AddDiary from './Diary/AddDiary'
+import DiaryList from './Diary/DiaryList'
+import EditDiary from './Diary/EditDiary'
 import './App.css'
+import { IoMdMenu } from "react-icons/io";
+
+// const Navbar = styled.nav`
+//   background: #dbfffe;
+//   min-height: 8vh;
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+// `
 
 const Navbar = styled.nav`
-  background: #dbfffe;
   min-height: 8vh;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
 `
 
 const Logo = styled.div`
   font-weight: bold;
-  font-size: 23px;
+  font-size: 36px;
   letter-spacing: 3px;
 `
 
 const NavItems = styled.ul`
-  display: flex;
   width: 400px;
   max-width: 40%;
   justify-content: space-around;
@@ -41,35 +48,67 @@ const Wrapper = styled.div`
   width: 700px;
   max-width: 85%;
   margin: 20px auto;
+  min-height: 500px;
 `
 
 function App() {
+    const [isNavOpen, setIsNavOpen] = useState(false);
+  
+    const toggleNav = () => {
+      setIsNavOpen(!isNavOpen);
+    };
+
   return (
     <>
-      <Navbar>
-        <Logo>
+      <Navbar className='navbar navbar-dark bg-dark'>
+        <Logo className='text-white'>
           Reading Diary
         </Logo>
-        <NavItems>
-          <NavItem>
-            <Link to="/books">
-              Todos
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/books/new">
-              Add New Books
-            </Link>
-          </NavItem>
-        </NavItems>
+        <button 
+        class="navbar-toggler p-0 border-0" 
+        type="button" id="navbarSideCollapse" 
+        aria-label="ナビゲーションの切替"
+        onClick={toggleNav}
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div className={`navbar-collapse offcanvas-collapse ${isNavOpen ? 'd-block' : 'd-none'}`} 
+        id='navbarNav'>
+          <NavItems className='navbar-nav'>
+            <NavItem className='navbar-item'>
+              <Link to="/books" className='navbar-link text-white-50'>
+                Books
+              </Link>
+            </NavItem>
+            <NavItem className='navbar-item'>
+              <Link to="/books/new" className='navbar-link text-white-50'>
+                Add New Books
+              </Link>
+            </NavItem>
+            <NavItem className='navbar-item'>
+              <Link to="/diaries" className='navbar-link text-white-50'>
+                Diary
+              </Link>
+            </NavItem>
+            <NavItem className='navbar-item'>
+              <Link to="/diaries/new" className='navbar-link text-white-50'>
+                Add New Diary
+              </Link>
+            </NavItem>
+          </NavItems>
+        </div>
       </Navbar>
-      <Wrapper>
-        {/* デバッグ用のコンテンツ */}
-        <div>Wrapper Content</div>
+      
+
+
+      <Wrapper className='container'>
         <Routes>
           <Route exact path="/books" element={<BookList />} />
           <Route exact path="/books/new" element={<AddBook />} />
           <Route path="/books/:id/edit" element={<EditBook />} />
+          <Route exact path="/diaries" element={<DiaryList />} />
+          <Route exact path="/diaries/new" element={<AddDiary />} />
+          <Route path="/diaries/:id/edit" element={<EditDiary />} />
         </Routes>
       </Wrapper>
     </>

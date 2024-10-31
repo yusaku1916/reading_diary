@@ -5,7 +5,7 @@ class Api::V1::BooksController < ApplicationController
   end
 
   def show
-    books = Book.find(params[:id])
+    book = Book.find(params[:id])
     render json: book
   end
 
@@ -21,13 +21,20 @@ class Api::V1::BooksController < ApplicationController
   end
 
   def edit
-    books = Book.find(params[:id])
-    if todo.update(book_params)
-      render json: book
+    book = Book.find(params[:id])
+    render json: book
+  end
+
+  def update
+    book = Book.find(params[:id])
+    if book.update(book_params)
+      books = Book.order(updated_at: :desc)
+      render json: books
     else
       render json: book.errors, status: 422
     end
   end
+
 
   def destroy
     if Book.destroy(params[:id])

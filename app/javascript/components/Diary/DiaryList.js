@@ -1,0 +1,77 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
+import { AiFillEdit } from 'react-icons/ai';
+
+const DiaryName = styled.span`
+  font-size: 27px;
+
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 7px auto;
+  padding: 10px;
+  font-size: 25px;
+`;
+
+const EditButton = styled.span`
+  display: flex;
+  align-items: center;
+  margin: 0 7px;
+`;
+
+const Div = styled.div`
+  min-height: 100px;
+  border: 2px solid;
+  background-color: #aaa;
+`
+
+function DiaryList() {
+  const [diaries, setDiaries] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/v1/diaries.json')
+      .then(resp => {
+        console.log(Array.isArray(resp.data));
+        console.log(resp.data);
+        setDiaries(resp.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }, []);
+
+
+  return (
+    <>
+      <h1>Diary List</h1>
+      <Div className='row'>
+        <Div className='col-4'>
+          <h2>User Info</h2>
+        </Div>
+        <Div className='col-8'>
+          {diaries.map((val, key) => {
+            return (
+              <Row key={key}>
+                <DiaryName>
+                  {val.title}({val.date})
+                </DiaryName>
+                <Link to={"/diaries/" + val.id + "/edit"}>
+                  <EditButton>
+                    <AiFillEdit />
+                  </EditButton>
+                </Link>
+              </Row>
+            );
+          })}
+        </Div>
+      </Div>
+    </>
+  );
+}
+
+export default DiaryList;
