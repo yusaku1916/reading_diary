@@ -65,12 +65,12 @@ function App() {
           Reading Diary
         </Logo>
         <button 
-        class="navbar-toggler p-0 border-0" 
+        className="navbar-toggler p-0 border-0" 
         type="button" id="navbarSideCollapse" 
         aria-label="ナビゲーションの切替"
         onClick={toggleNav}
         >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
         </button>
         <div className={`navbar-collapse offcanvas-collapse ${isNavOpen ? 'd-block' : 'd-none'}`} 
         id='navbarNav'>
