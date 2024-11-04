@@ -56,6 +56,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
+gem 'devise_token_auth'
+
+gem 'omniauth'
 
 gem 'kaminari','~> 1.2.1'
 
@@ -63,3 +66,5 @@ gem "jsbundling-rails", "~> 1.3"
 
 gem 'bootstrap', '~> 5.0.2'
 gem 'sassc-rails'
+
+

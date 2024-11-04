@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
 
+  # devise_for :users
   root to: redirect('/books')
   
   get 'books', to: 'sites#index'
@@ -21,15 +23,5 @@ Rails.application.routes.draw do
     end
   end
 
-  # get 'users/edit'
-  # get 'users/show'
-  # get 'users/delete'
-  # devise_for :users
-  # root to: 'homes#top'
-  # get 'homes/about'
-
-  # resources :users
-  # resources :books
-  # resources :diaries
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
