@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiSend } from 'react-icons/fi';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Profile from '../User/Profile'
 
 
 toast.configure();
@@ -93,12 +94,40 @@ function AddDiary(props) {
   const [diary, setDiary] = useState(initialDiaryState);
   const [books, setBooks] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState('');
+  const [user, setUser] = useState({});
+  const [profileImageUrl, setProfileImageUrl] = useState('');
+
+  // useEffect(() => {
+  //   axios('/api/v1/books.json') // Railsのエンドポイント
+  //   .then(resp => {
+  //       if (!resp.ok) {
+  //           throw new Error('Network response was not ok');
+  //       }
+  //       return resp.json();
+  //   })
+  //   .then(data => {
+  //       setBooks(data.books);
+  //       console.log(data.books);
+  //       console.log(books);
+  //   })
+  //   .catch(error => {
+  //       console.error('Fetch operation に問題がありました:', error);
+  //   });
+  // }, []);
 
   useEffect(() => {
-    fetch('/api/v1/books.json') // Railsのエンドポイント
-      .then(resp => resp.json())
-      .then(data => setBooks(data));
+    axios.get('/api/v1/books.json')
+    .then(resp => {
+      setBooks(resp.data.books);
+      setUser(resp.data.user);
+      setProfileImageUrl(resp.data.profile_image_url);
+      console.log(books);
+    })
+    .catch(e => {
+      console.log(e);
+    });
   }, []);
+
 
   const notify = () => {
     toast.success("Diary successfully created!", {
@@ -152,7 +181,9 @@ function AddDiary(props) {
     <>
       <h1>New Diary</h1>
         <div className='row'>
-          <Div className='col-4'><h2>User Info</h2></Div>
+        <Div className='col-4'>
+          <Profile data = { user } image = { profileImageUrl }/>
+        </Div>
           <Div className='col-8'>
             <div className='row mx-1 my-3' id='DateAndTime'>
               <div className='col-9 pe-1 ps-0'>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // import 'react-toastify';
 import { FiSend } from 'react-icons/fi';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Profile from '../User/Profile'
 
 toast.configure();
 
@@ -18,36 +19,26 @@ const InputAndButton = styled.div`
 `;
 
 const InputName = styled.input`
-  font-size: 20px;
   width: 100%;
   height: 40px;
   padding: 2px 7px;
 `;
 
-// const Button = styled.button`
-//   font-size: 20px;
-//   border: none;
-//   border-radius: 3px;
-//   height: 32px;
-//   margin-left: 10px;
-//   padding: 2px 10px;
-//   background: #1E90FF;
-//   color: #fff;
-//   text-align: center;
-//   cursor: pointer;
-//   ${({ disabled }) =>
-//     disabled &&
-//     `
-//     opacity: 0.5;
-//     cursor: default;
-//   `}
-// `;
-
-const Button = styled.button``
+const Button = styled.button`
+  text-align: center;
+  cursor: pointer;
+  
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.5;
+    cursor: default;
+  `}`
 
 const Icon = styled.span`
   display: flex;
   align-items: center;
+  justify-content-center;
   margin: 0 7px;
 `
 
@@ -58,14 +49,12 @@ const Div = styled.div`
 `
 
 const DateAndButton = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `
 
 
 function AddBook(props) {
+  const [user, setUser] = useState({});
+  const [profileImageUrl, setProfileImageUrl] = useState('');
   const navigate =useNavigate();
   const today = new Date().toISOString().substring(0, 10);
   const initialBookState = {
@@ -75,6 +64,17 @@ function AddBook(props) {
     start_day: today,
   };
   const [book, setBook] = useState(initialBookState);
+
+  useEffect(() => {
+    axios.get('/api/v1/books.json')
+    .then(resp => {
+      setUser(resp.data.user);
+      setProfileImageUrl(resp.data.profile_image_url);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  }, []);
 
   const notify = () => {
     toast.success("Book successfully created!", {
@@ -121,9 +121,11 @@ function AddBook(props) {
     <>
       <h1>New Book</h1>
       <Div className='row'>
-        <Div className='col-4'><h2>Use Info</h2></Div>
+        <Div className='col-4'>
+          <Profile data = { user } image = { profileImageUrl }/>
+        </Div>
         <InputAndButton className='col-8'>
-          <label htmlFor="inputName" className='fs-5'>本の名前</label>
+          <label htmlFor="inputName" className='fs-5'>Name</label>
           <InputName
             type="text"
             id="inputName"
@@ -132,7 +134,7 @@ function AddBook(props) {
             onChange={handleInputChange}
             name="name"
           />        
-          <label htmlFor="inputAuthor" className='fs-5'>著者</label>
+          <label htmlFor="inputAuthor" className='fs-5'>Author</label>
           <InputName
             type="text"
             id="inputAuthor"
@@ -141,8 +143,8 @@ function AddBook(props) {
             onChange={handleInputChange}
             name="author"
           />
-          <DateAndButton>
-            <div>
+          <DateAndButton className='row w-100'>
+            <div className='col-8 ps-0 pe-1'>
               <label htmlFor="inputStartDay" className='fs-5'>読み始め</label>
               <InputName
                 type="date"
@@ -153,7 +155,7 @@ function AddBook(props) {
                 name="start_day"
               />
             </div>
-            <Button className='btn btn-primary'
+            <Button className='col-4 btn btn-primary h-50 my-auto'
               onClick={saveBook}
               disabled={(!book.name || /^\s*$/.test(book.name) || !book.author.trim() || !book.start_day)}
             >

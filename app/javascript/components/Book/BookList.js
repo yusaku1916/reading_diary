@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import { AiFillEdit } from 'react-icons/ai'
+import Profile from '../User/Profile'
 
 
 const RemoveAllButton = styled.button`
@@ -51,13 +52,16 @@ const DivBooks = styled.div`
 
 function BookList() {
   const [books, setBooks] = useState([]);
+  const [user, setUser] = useState({});
+  const [profileImageUrl, setProfileImageUrl] = useState('');
 
   useEffect(() => {
     axios.get('/api/v1/books.json')
     .then(resp => {
-      console.log(Array.isArray(resp.data));
       console.log(resp.data);
-      setBooks(resp.data);
+      setBooks(resp.data.books);
+      setUser(resp.data.user);
+      setProfileImageUrl(resp.data.profile_image_url);
     })
     .catch(e => {
       console.log(e);
@@ -82,7 +86,7 @@ function BookList() {
       <h1>Book List</h1>
       <Div className='row'>
         <Div className='col-4'>
-          <h2>User Info</h2>
+          <Profile data = { user } image = { profileImageUrl }/>
         </Div>
         <DivBooks className='col-8'>
           {books.map((val, key) => {

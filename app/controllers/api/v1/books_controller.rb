@@ -1,7 +1,9 @@
 class Api::V1::BooksController < ApplicationController
   def index
     books = Book.order(updated_at: :desc)
-    render json: books
+    user = User.find(1)
+    profile_image_url = url_for(user.get_profile_image)
+    render json: {books: books, user: user, profile_image_url: profile_image_url }
   end
 
   def show

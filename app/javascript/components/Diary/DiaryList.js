@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { AiFillEdit } from 'react-icons/ai';
+import Profile from '../User/Profile'
 
 const DiaryName = styled.span`
 `;
@@ -30,11 +31,15 @@ const Div = styled.div`
 
 function DiaryList() {
   const [diaries, setDiaries] = useState([]);
+  const [user, setUser] = useState({});
+  const [profileImageUrl, setProfileImageUrl] = useState('');
 
   useEffect(() => {
     axios.get('/api/v1/diaries.json')
       .then(resp => {
-        setDiaries(resp.data);
+        setDiaries(resp.data.diaries);
+        setUser(resp.data.user);
+        setProfileImageUrl(resp.data.profile_image_url);
       })
       .catch(e => {
         console.log(e);
@@ -47,7 +52,7 @@ function DiaryList() {
       <h1>Diary List</h1>
       <Div className='row'>
         <Div className='col-4'>
-          <h2>User Info</h2>
+          <Profile data = { user } image = { profileImageUrl }/>
         </Div>
         <Div className='col-8'>
           {diaries.map((val, key) => {
