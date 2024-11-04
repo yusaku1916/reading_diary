@@ -9,12 +9,15 @@ Rails.application.routes.draw do
   get 'diaries', to: 'sites#index'
   get 'diaries/new', to: 'sites#index'
   get 'diaries/:id/edit', to: 'sites#index'
+
+  get 'user/:id/edit', to: 'sites#index'
   
   namespace :api do 
     namespace :v1 do
       delete 'books/destroy_all', to: 'books#destroy_all'
       resources :books, only: %i[index show create edit destroy update new]
       resources :diaries, only: %i[index show create edit destroy update new]
+      resources :users, only: %i[show edit update]
     end
   end
 

@@ -1,6 +1,7 @@
 import React from 'react'
-import EditUser from 'EditUser'
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { AiFillEdit } from 'react-icons/ai';
 
 function Profile({data, image}) {
   return (
@@ -22,7 +23,11 @@ function Profile({data, image}) {
           <p className='fs-2 mb-0'>{data.introduction}</p>
         </div>
         <div>
-          
+          <Link to={"/user/" + data.id + "/edit"}>
+            <div>
+              <AiFillEdit />
+            </div>
+          </Link>
         </div>
       </div>
     </>
