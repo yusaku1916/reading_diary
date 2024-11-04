@@ -72,7 +72,6 @@ function EditDiary(props) {
       .then(resp => {
         console.log(resp.data);
         setCurrentDiary(resp.data.diary);
-        // console.log(resp.data.diary);
       })
       .catch(e => {
         console.log(e);
@@ -83,7 +82,6 @@ function EditDiary(props) {
     axios.get(`/api/v1/diaries/${id}`)
       .then(resp => {
         setBooks(resp.data.books);
-        // console.log(resp.data.books);
       })
       .catch(e => {
         console.log(e);
@@ -126,8 +124,7 @@ function EditDiary(props) {
     if (sure) {
       axios.delete(`/api/v1/diaries/${currentDiary.id}`)
       .then(resp => {
-        console.log(resp.data);
-        props.history.push("/diaries");
+        navigate("/diaries");
       })
       .catch(e => {
         console.log(e);

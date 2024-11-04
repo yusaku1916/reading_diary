@@ -22,12 +22,7 @@ class Api::V1::DiariesController < ApplicationController
     diaries = Diary.order(updated_at: :desc)
     user = User.find(1)
     profile_image_url = url_for(user.get_profile_image)
-    # render json: {books: books, user: user, profile_image_url: profile_image_url }
-    # Diary.where(user_id: 1)
-    # books = Book.where(user_id: 1)
-    # @user = User.find(1)
     render json: { diaries: diaries, user: user, profile_image_url: profile_image_url}
-    # render json: diaries
   end
 
   def show
@@ -46,13 +41,11 @@ class Api::V1::DiariesController < ApplicationController
   def update
     diary = Diary.find(params[:id])
     diary.update(diary_params)
-    redirect_to diaries_path
   end
 
   def destroy
     diary = Diary.find(params[:id])
     diary.destroy
-    redirect_to diaries_path
   end
 
   private

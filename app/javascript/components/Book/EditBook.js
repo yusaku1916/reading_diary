@@ -104,8 +104,7 @@ function EditBook(props) {
     if (sure) {
       axios.delete(`/api/v1/books/${currentBook.id}`)
       .then(resp => {
-        console.log(resp.data);
-        props.history.push("/books");
+        navigate("/books");
       })
       .catch(e => {
         console.log(e);
