@@ -9,6 +9,7 @@ import DiaryList from './Diary/DiaryList'
 import EditDiary from './Diary/EditDiary'
 import './App.css'
 import { IoMdMenu } from "react-icons/io";
+import EditUser from './User/EditUser'
 
 // const Navbar = styled.nav`
 //   background: #dbfffe;
@@ -109,6 +110,7 @@ function App() {
           <Route exact path="/diaries" element={<DiaryList />} />
           <Route exact path="/diaries/new" element={<AddDiary />} />
           <Route path="/diaries/:id/edit" element={<EditDiary />} />
+          <Route path="/user/:id/edit" element={<EditUser />} />
         </Routes>
       </Wrapper>
     </>
