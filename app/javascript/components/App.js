@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import AddBook from './Book/AddBook'
 import BookList from './Book/BookList'
@@ -54,10 +54,39 @@ const Wrapper = styled.div`
 
 function App() {
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const navigate = useNavigate();
   
     const toggleNav = () => {
       setIsNavOpen(!isNavOpen);
     };
+
+    const signOutUser = () => {
+      if (window.confirm('Are you sure you want to sign out?')) {
+        fetch('/users/sign_out', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          },
+          credentials: 'same-origin',  // 認証情報を含める場合
+        })
+        .then(response => {
+          if (response.ok) {
+            // サインアウト成功時の処理
+            console.log('Signed out successfully');
+            // リダイレクトや状態の更新など
+            navigate('homes/top');
+          } else {
+            // エラーハンドリング
+            console.error('Failed to sign out');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+    }
+    
 
   return (
     <>
@@ -95,6 +124,11 @@ function App() {
               <Link to="/diaries/new" className='navbar-link text-white-50'>
                 Add New Diary
               </Link>
+            </NavItem>
+            <NavItem className='navbar-item'>
+              <div onClick={signOutUser} className='navbar-link text-white-50'>
+                Log Out
+              </div>
             </NavItem>
           </NavItems>
         </div>

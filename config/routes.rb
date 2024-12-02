@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-
+  
+  devise_for :users
   root to: redirect('/books')
   
+  get 'homes/top'
+
   get 'books', to: 'sites#index'
   get 'books/new', to: 'sites#index'
   get 'books/:id/edit', to: 'sites#index'
